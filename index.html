@@ -171,6 +171,17 @@
         reader.readAsDataURL(file);
       });
 
+// Load custom font for canvas
+const antonFont = new FontFace('Anton', 'url(https://fonts.gstatic.com/s/anton/v24/1Ptgg87LROyAm0K08i4gS7lu.woff2)');
+
+antonFont.load().then(function (loadedFont) {
+  document.fonts.add(loadedFont);
+  addMatchDetails(); // Re-render after font is loaded
+});
+
+
+
+
       function addMatchDetails() {
         const homeTeam =
           document.getElementById("homeTeam").value || "Home Team";
@@ -202,7 +213,7 @@
 
        
         // Draw team names
-        ctx.font = "250px Arial Black";
+        ctx.font = "250px Anton";
         ctx.textAlign = "center";
         ctx.strokeStyle = "black";
         ctx.lineWidth = 6;
@@ -212,7 +223,7 @@
 
         // Draw scores
 
-        ctx.font = `${fontSize}px Arial Black`;
+        ctx.font = `${fontSize}px Anton`;
         const timeVenueText = `${matchTime} - ${stadiumName}`;
         ctx.strokeStyle = "black";
         ctx.lineWidth = 6;
@@ -221,7 +232,7 @@
         ctx.fillText(timeVenueText, centerX, startY + spacing);
         
          // Draw Date of the Match
-         ctx.font = "100px Arial Black";
+         ctx.font = "100px Anton";
         ctx.strokeStyle = "black";
         ctx.lineWidth = 6;
         ctx.fillStyle = "white";
