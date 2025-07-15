@@ -129,6 +129,7 @@
           id="stadiumName"
           placeholder="🏟️ Stadium Name (e.g., Old Trafford)"
         />
+        <input type="date" id="matchDate" placeholder="📅 Match Date" />
       </div>
 
       <div
@@ -180,6 +181,8 @@
 
         const stadiumName =
           document.getElementById("stadiumName").value || "Stadium TBD";
+        const matchDate =
+          document.getElementById("matchDate").value || "Date TBD";
 
         if (!uploadedImage) {
           alert("Please upload an image first.");
@@ -192,11 +195,12 @@
         const centerX = canvas.width / 2;
         const startY = canvas.height * 0.83; // 30% from bottom
         const spacing = 200;
- let fontSize = canvas.width < 1000 ? 140 : 200;
+        let fontSize = canvas.width < 1000 ? 140 : 200;
         // Optional background for readability
         ctx.fillStyle = "rgba(0,0,0,0)";
         ctx.fillRect(0, startY - 130, canvas.width, 630);
 
+       
         // Draw team names
         ctx.font = "250px Arial Black";
         ctx.textAlign = "center";
@@ -207,15 +211,22 @@
         ctx.fillText(`${homeTeam} vs ${awayTeam}`, centerX, startY);
 
         // Draw scores
-       
-ctx.font = `${fontSize}px Arial Black`;
-const timeVenueText = `${matchTime} - ${stadiumName}`;
-ctx.strokeStyle = "black";
-ctx.lineWidth = 6;
-ctx.fillStyle = "yellow";
-ctx.strokeText(timeVenueText, centerX, startY + spacing);
-ctx.fillText(timeVenueText, centerX, startY + spacing);
 
+        ctx.font = `${fontSize}px Arial Black`;
+        const timeVenueText = `${matchTime} - ${stadiumName}`;
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = 6;
+        ctx.fillStyle = "yellow";
+        ctx.strokeText(timeVenueText, centerX, startY + spacing);
+        ctx.fillText(timeVenueText, centerX, startY + spacing);
+        
+         // Draw Date of the Match
+         ctx.font = "100px Arial Black";
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = 6;
+        ctx.fillStyle = "white";
+        ctx.strokeText(matchDate, centerX, startY + spacing + 200);
+        ctx.fillText(matchDate, centerX, startY + spacing + 200);
 
       }
 
