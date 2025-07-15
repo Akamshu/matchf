@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Football Match Result Generator</title>
+    <!-- Google Fonts (Poppins for clean UI) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        box-sizing: border-box;
+
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(to bottom right, #2c3e50, #3498db);
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        margin: 0;
+      }
+
+      h2 {
+        margin-bottom: 20px;
+      }
+
+      .container {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 14px;
+        padding: 25px 30px;
+        max-width: 700px;
+        margin: auto;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(10px);
+      }
+
+      .form-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 15px;
+      }
+
+      input[type="text"],
+      input[type="number"],
+      input[type="file"] {
+        padding: 12px;
+        font-size: 16px;
+        border: none;
+        border-radius: 8px;
+        background-color: #ecf0f1;
+        color: #333;
+        width: 100%;
+      }
+
+      input[type="file"] {
+        background-color: #fff;
+        padding: 8px;
+      }
+
+      button {
+        width: 48%;
+        padding: 12px;
+        font-size: 16px;
+        border: none;
+        border-radius: 8px;
+        background: #27ae60;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+      }
+
+      button:hover {
+        background-color: #1e8d4d;
+        transform: scale(1.03);
+      }
+
+      canvas {
+        margin-top: 30px;
+        border-radius: 12px;
+        max-width: 100%;
+        width: 100%;
+        border: 2px solid #fff;
+      }
+
+      @media (max-width: 600px) {
+        .form-group {
+          grid-template-columns: 1fr;
+        }
+
+        button {
+          width: 100%;
+          margin-top: 10px;
+        }
+
+        h2 {
+          font-size: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h2>🏆 Football Match Result Generator</h2>
+
+    <div class="container">
+      <input type="file" id="imageUploader" accept="image/*" /><br /><br />
+
+      <div class="form-group">
+        <input type="text" id="homeTeam" placeholder="🏠 Home Team Name" />
+        <input type="text" id="awayTeam" placeholder="🚩 Away Team Name" />
+      </div>
+
+      <div class="form-group">
+        <input
+          type="text"
+          id="matchTime"
+          placeholder="⏰ Match Time (e.g., 4:00 PM)"
+        />
+        <input
+          type="text"
+          id="stadiumName"
+          placeholder="🏟️ Stadium Name (e.g., Old Trafford)"
+        />
+      </div>
+
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          gap: 10px;
+        "
+      >
+        <button onclick="addMatchDetails()">🎨 Generate Image</button>
+        <button onclick="downloadImage()">💾 Download Image</button>
+      </div>
+    </div>
+
+    <canvas id="canvas"></canvas>
+
+    <script>
+      const imageUploader = document.getElementById("imageUploader");
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+      let uploadedImage = null;
+
+      imageUploader.addEventListener("change", function (event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const img = new Image();
+          img.onload = function () {
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img, 0, 0);
+            uploadedImage = img;
+          };
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+
+      function addMatchDetails() {
+        const homeTeam =
+          document.getElementById("homeTeam").value || "Home Team";
+        const matchTime =
+          document.getElementById("matchTime").value || "Time TBD";
+        const awayTeam =
+          document.getElementById("awayTeam").value || "Away Team";
+
+        const stadiumName =
+          document.getElementById("stadiumName").value || "Stadium TBD";
+
+        if (!uploadedImage) {
+          alert("Please upload an image first.");
+          return;
+        }
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(uploadedImage, 0, 0);
+
+        const centerX = canvas.width / 2;
+        const startY = canvas.height * 0.83; // 30% from bottom
+        const spacing = 200;
+ let fontSize = canvas.width < 1000 ? 140 : 200;
+        // Optional background for readability
+        ctx.fillStyle = "rgba(0,0,0,0)";
+        ctx.fillRect(0, startY - 130, canvas.width, 630);
+
+        // Draw team names
+        ctx.font = "250px Arial Black";
+        ctx.textAlign = "center";
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = 6;
+        ctx.fillStyle = "white";
+        ctx.strokeText(`${homeTeam} vs ${awayTeam}`, centerX, startY);
+        ctx.fillText(`${homeTeam} vs ${awayTeam}`, centerX, startY);
+
+        // Draw scores
+       
+ctx.font = `${fontSize}px Arial Black`;
+const timeVenueText = `${matchTime} - ${stadiumName}`;
+ctx.strokeStyle = "black";
+ctx.lineWidth = 6;
+ctx.fillStyle = "yellow";
+ctx.strokeText(timeVenueText, centerX, startY + spacing);
+ctx.fillText(timeVenueText, centerX, startY + spacing);
+
+
+      }
+
+      function downloadImage() {
+        const link = document.createElement("a");
+        link.download = "match-result.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+      }
+    </script>
+  </body>
+</html>
