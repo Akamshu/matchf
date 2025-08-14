@@ -1,256 +1,196 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Football Match Fuxtures Generator</title>
-    <!-- Google Fonts (Poppins for clean UI) -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
-      rel="stylesheet"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Football Match Fixtures Generator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 
-    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #2c3e50, #3498db);
+      color: #fff;
+      font-family: "Segoe UI", sans-serif;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 14px;
+      padding: 25px 30px;
+      max-width: 850px;
+      margin: auto;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+    }
+    input[type="text"], input[type="date"], input[type="file"] {
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: #ecf0f1;
+      color: #333;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background: #27ae60;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    button:hover {
+      background-color: #1e8d4d;
+      transform: scale(1.03);
+    }
+    canvas {
+      margin-top: 30px;
+      border-radius: 12px;
+      max-width: 100%;
+      border: 2px solid #fff;
+    }
+  </style>
+</head>
+<body>
 
+<h2>🏆 Football Match Fixtures Generator</h2>
 
-    <style>
-      * {
-        box-sizing: border-box;
+<div class="container">
+  <label>Background Image:</label>
+  <input type="file" id="imageUploader" accept="image/*"><br>
 
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      }
+  <label>Player Image 1:</label>
+  <input type="file" id="player1" accept="image/*"><br>
 
-      body {
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(to bottom right, #2c3e50, #3498db);
-        color: #fff;
-        padding: 20px;
-        text-align: center;
-        margin: 0;
-      }
+  <label>Player Image 2:</label>
+  <input type="file" id="player2" accept="image/*"><br>
 
-      h2 {
-        margin-bottom: 20px;
-      }
+  <label>Home Team Logo:</label>
+  <input type="file" id="homeLogo" accept="image/*"><br>
 
-      .container {
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 14px;
-        padding: 25px 30px;
-        max-width: 700px;
-        margin: auto;
-        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-        backdrop-filter: blur(10px);
-      }
+  <label>Away Team Logo:</label>
+  <input type="file" id="awayLogo" accept="image/*"><br>
 
-      .form-group {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-        margin-bottom: 15px;
-      }
+  <input type="text" id="homeTeam" placeholder="🏠 Home Team Name">
+  <input type="text" id="awayTeam" placeholder="🚩 Away Team Name">
+  <input type="text" id="matchTime" placeholder="⏰ Match Time (e.g., 4:00 PM)">
+  <input type="text" id="stadiumName" placeholder="🏟️ Stadium Name">
+  <input type="date" id="matchDate">
 
-      input[type="text"],
-      input[type="date"],
-      input[type="number"],
-      input[type="file"] {
-        padding: 12px;
-        font-size: 16px;
-        border: none;
-        border-radius: 8px;
-        background-color: #ecf0f1;
-        color: #333;
-        width: 100%;
-      }
+  <button onclick="downloadImage()">💾 Download Image</button>
+</div>
 
-      input[type="file"] {
-        background-color: #fff;
-        padding: 8px;
-      }
+<canvas id="canvas"></canvas>
 
-      button {
-        width: 48%;
-        padding: 12px;
-        font-size: 16px;
-        border: none;
-        border-radius: 8px;
-        background: #27ae60;
-        color: white;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        margin-top: 10px;
-      }
+<script>
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d");
 
-      button:hover {
-        background-color: #1e8d4d;
-        transform: scale(1.03);
-      }
+  let uploadedImage = null;
+  let player1Img = null;
+  let player2Img = null;
+  let homeLogoImg = null;
+  let awayLogoImg = null;
 
-      canvas {
-        margin-top: 30px;
-        border-radius: 12px;
-        max-width: 100%;
-        width: 100%;
-        border: 2px solid #fff;
-      }
+  function loadImage(file, callback) {
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = new Image();
+      img.onload = () => callback(img);
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
 
-      @media (max-width: 600px) {
-        .form-group {
-          grid-template-columns: 1fr;
-        }
+  document.getElementById("imageUploader").addEventListener("change", e => {
+    loadImage(e.target.files[0], img => {
+      uploadedImage = img;
+      canvas.width = img.width;
+      canvas.height = img.height;
+      render();
+    });
+  });
 
-        button {
-          width: 100%;
-          margin-top: 10px;
-        }
+  document.getElementById("player1").addEventListener("change", e => {
+    loadImage(e.target.files[0], img => { player1Img = img; render(); });
+  });
 
-        h2 {
-          font-size: 20px;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <h2>🏆 Football Match Fixtures Generator</h2>
+  document.getElementById("player2").addEventListener("change", e => {
+    loadImage(e.target.files[0], img => { player2Img = img; render(); });
+  });
 
-    <div class="container">
-      <input type="file" id="imageUploader" accept="image/*" /><br /><br />
+  document.getElementById("homeLogo").addEventListener("change", e => {
+    loadImage(e.target.files[0], img => { homeLogoImg = img; render(); });
+  });
 
-      <div class="form-group">
-        <input type="text" id="homeTeam" placeholder="🏠 Home Team Name" />
-        <input type="text" id="awayTeam" placeholder="🚩 Away Team Name" />
-      </div>
+  document.getElementById("awayLogo").addEventListener("change", e => {
+    loadImage(e.target.files[0], img => { awayLogoImg = img; render(); });
+  });
 
-      <div class="form-group">
-        <input
-          type="text"
-          id="matchTime"
-          placeholder="⏰ Match Time (e.g., 4:00 PM)"
-        />
-        <input
-          type="text"
-          id="stadiumName"
-          placeholder="🏟️ Stadium Name (e.g., Old Trafford)"
-        />
-        <input type="date" id="matchDate" placeholder="📅 Match Date" />
-      </div>
+  document.querySelectorAll("#homeTeam, #awayTeam, #matchTime, #stadiumName, #matchDate")
+    .forEach(input => input.addEventListener("input", render));
 
-      <div
-        style="
-          display: flex;
-          justify-content: space-between;
-          flex-wrap: wrap;
-          gap: 10px;
-        "
-      >
-        <button onclick="addMatchDetails()">🎨 Generate Image</button>
-        <button onclick="downloadImage()">💾 Download Image</button>
-      </div>
-    </div>
+  function formatDate(dateStr) {
+    if (!dateStr) return "Date TBD";
+    const date = new Date(dateStr);
+    return date.toLocaleDateString("en-US", { day: "numeric", month: "long", year: "numeric" });
+  }
 
-    <canvas id="canvas"></canvas>
+  function drawTextCentered(text, y, fontSize, color = "white") {
+    ctx.font = `${fontSize}px Anton`;
+    ctx.textAlign = "center";
+    ctx.fillStyle = color;
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 6;
+    ctx.strokeText(text, canvas.width / 2, y);
+    ctx.fillText(text, canvas.width / 2, y);
+  }
 
-    <script>
-      const imageUploader = document.getElementById("imageUploader");
-      const canvas = document.getElementById("canvas");
-      const ctx = canvas.getContext("2d");
-      let uploadedImage = null;
+  function render() {
+    if (!uploadedImage) return;
 
-      imageUploader.addEventListener("change", function (event) {
-        const file = event.target.files[0];
-        if (!file) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(uploadedImage, 0, 0);
 
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          const img = new Image();
-          img.onload = function () {
-            canvas.width = img.width;
-            canvas.height = img.height;
-            ctx.drawImage(img, 0, 0);
-            uploadedImage = img;
-          };
-          img.src = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      });
+    // Players
+    const playerHeight = canvas.height * 0.8;
+    const playerWidth = playerHeight * 0.6;
+    ctx.globalAlpha = 0.85;
 
-// Load custom font for canvas
-const antonFont = new FontFace('Anton', 'url(https://fonts.gstatic.com/s/anton/v24/1Ptgg87LROyAm0K08i4gS7lu.woff2)');
+    if (player1Img) ctx.drawImage(player1Img, canvas.width * 0.05, canvas.height - playerHeight, playerWidth, playerHeight);
+    if (player2Img) ctx.drawImage(player2Img, canvas.width - playerWidth - canvas.width * 0.05, canvas.height - playerHeight, playerWidth, playerHeight);
 
-antonFont.load().then(function (loadedFont) {
-  document.fonts.add(loadedFont);
-  addMatchDetails(); // Re-render after font is loaded
-});
+    ctx.globalAlpha = 1.0;
 
+    // Logos
+    const logoSize = canvas.width * 0.22;
+    const logoY = canvas.height * 0.45;
+    if (homeLogoImg) ctx.drawImage(homeLogoImg, canvas.width * 0.36 - logoSize / 2, logoY, logoSize, logoSize);
+    if (awayLogoImg) ctx.drawImage(awayLogoImg, canvas.width * 0.64 - logoSize / 2, logoY, logoSize, logoSize);
 
+    // VS text
+    drawTextCentered("VS", canvas.height * 0.52, Math.max(canvas.width * 0.05, 40), "white");
 
+    // Match details
+    drawTextCentered(`${document.getElementById("matchTime").value || "Time TBD"} - ${document.getElementById("stadiumName").value || "Stadium TBD"}`,
+                     canvas.height * 0.78, Math.max(canvas.width * 0.035, 30), "yellow");
+    drawTextCentered(formatDate(document.getElementById("matchDate").value), canvas.height * 0.85, Math.max(canvas.width * 0.03, 24));
+  }
 
-      function addMatchDetails() {
-        const homeTeam =
-          document.getElementById("homeTeam").value || "Home Team";
-        const matchTime =
-          document.getElementById("matchTime").value || "Time TBD";
-        const awayTeam =
-          document.getElementById("awayTeam").value || "Away Team";
+  function downloadImage() {
+    const link = document.createElement("a");
+    link.download = "match-fixture.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  }
+</script>
 
-        const stadiumName =
-          document.getElementById("stadiumName").value || "Stadium TBD";
-        const matchDate =
-          document.getElementById("matchDate").value || "Date TBD";
-
-        if (!uploadedImage) {
-          alert("Please upload an image first.");
-          return;
-        }
-
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(uploadedImage, 0, 0);
-
-        const centerX = canvas.width / 2;
-        const startY = canvas.height * 0.83; // 30% from bottom
-        const spacing = 200;
-        let fontSize = canvas.width < 1000 ? 140 : 200;
-        // Optional background for readability
-        ctx.fillStyle = "rgba(0,0,0,0.43)";
-        ctx.fillRect(0, startY - 290, canvas.width, 560);
-
-       
-        // Draw team names
-        ctx.font = "250px Anton";
-        ctx.textAlign = "center";
-        ctx.strokeStyle = "black";
-        ctx.lineWidth = 6;
-        ctx.fillStyle = "white";
-        ctx.strokeText(`${homeTeam} vs ${awayTeam}`, centerX, startY);
-        ctx.fillText(`${homeTeam} vs ${awayTeam}`, centerX, startY);
-
-        // Draw scores
-
-        ctx.font = `${fontSize}px Anton`;
-        const timeVenueText = `${matchTime} - ${stadiumName}`;
-        ctx.strokeStyle = "black";
-        ctx.lineWidth = 6;
-        ctx.fillStyle = "yellow";
-        ctx.strokeText(timeVenueText, centerX, startY + spacing);
-        ctx.fillText(timeVenueText, centerX, startY + spacing);
-        
-         // Draw Date of the Match
-         ctx.font = "100px Anton";
-        ctx.strokeStyle = "black";
-        ctx.lineWidth = 6;
-        ctx.fillStyle = "white";
-        ctx.strokeText(matchDate, centerX, startY + spacing + 200);
-        ctx.fillText(matchDate, centerX, startY + spacing + 200);
-
-      }
-
-      function downloadImage() {
-        const link = document.createElement("a");
-        link.download = "match-result.png";
-        link.href = canvas.toDataURL("image/png");
-        link.click();
-      }
-    </script>
-  </body>
+</body>
 </html>
