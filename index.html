@@ -1,61 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Football Match Fixtures Generator</title>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Football Match Fixtures Generator</title>
 
-  <style>
-    body {
-      background: linear-gradient(to bottom right, #2c3e50, #3498db);
-      color: #fff;
-      font-family: "Segoe UI", sans-serif;
-      padding: 20px;
-      text-align: center;
-    }
-    .container {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 14px;
-      padding: 25px 30px;
-      max-width: 850px;
-      margin: auto;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(10px);
-    }
-    input[type="text"], input[type="date"], input[type="file"] {
-      padding: 12px;
-      font-size: 16px;
-      border: none;
-      border-radius: 8px;
-      background-color: #ecf0f1;
-      color: #333;
-      width: 100%;
-      margin-bottom: 10px;
-    }
-    button {
-      width: 100%;
-      padding: 12px;
-      font-size: 16px;
-      border: none;
-      border-radius: 8px;
-      background: #27ae60;
-      color: white;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    button:hover {
-      background-color: #1e8d4d;
-      transform: scale(1.03);
-    }
-    canvas {
-      margin-top: 30px;
-      border-radius: 12px;
-      max-width: 100%;
-      border: 2px solid #fff;
-    }
-  </style>
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+
+<style>
+  * {
+    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  }
+  body {
+    background: linear-gradient(to bottom right, #2c3e50, #3498db);
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    margin: 0;
+  }
+  h2 { margin-bottom: 20px; }
+  .container {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 14px;
+    padding: 25px 30px;
+    max-width: 850px;
+    margin: auto;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+  }
+  .form-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 15px;
+  }
+  input[type="text"], input[type="date"], input[type="file"] {
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: #ecf0f1;
+    color: #333;
+    width: 100%;
+  }
+  input[type="file"] { background-color: #fff; padding: 8px; }
+  button {
+    width: 48%;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    background: #27ae60;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+  }
+  button:hover { background-color: #1e8d4d; transform: scale(1.03); }
+  canvas {
+    margin-top: 30px;
+    border-radius: 12px;
+    max-width: 100%;
+    width: 100%;
+    border: 2px solid #fff;
+  }
+  @media (max-width: 600px) {
+    .form-group { grid-template-columns: 1fr; }
+    button { width: 100%; }
+  }
+</style>
 </head>
 <body>
 
@@ -63,133 +79,211 @@
 
 <div class="container">
   <label>Background Image:</label>
-  <input type="file" id="imageUploader" accept="image/*"><br>
+  <input type="file" id="imageUploader" accept="image/*" /><br><br>
 
-  <label>Player Image 1:</label>
-  <input type="file" id="player1" accept="image/*"><br>
+  <label>Player Image 1 (Optional):</label>
+  <input type="file" id="player1" accept="image/*" /><br><br>
 
-  <label>Player Image 2:</label>
-  <input type="file" id="player2" accept="image/*"><br>
+  <label>Player Image 2 (Optional):</label>
+  <input type="file" id="player2" accept="image/*" /><br><br>
 
-  <label>Home Team Logo:</label>
-  <input type="file" id="homeLogo" accept="image/*"><br>
+  <div class="form-group">
+    <input list="epl-teams" id="homeTeam" placeholder="🏠 Home Team Name" />
+    <input list="epl-teams" id="awayTeam" placeholder="🚩 Away Team Name" />
+  </div>
 
-  <label>Away Team Logo:</label>
-  <input type="file" id="awayLogo" accept="image/*"><br>
+  <div class="form-group">
+    <input type="text" id="matchTime" placeholder="⏰ Match Time (e.g., 4:00 PM)" />
+    <input type="text" id="stadiumName" placeholder="🏟️ Stadium Name" />
+    <input type="date" id="matchDate" />
+  </div>
 
-  <input type="text" id="homeTeam" placeholder="🏠 Home Team Name">
-  <input type="text" id="awayTeam" placeholder="🚩 Away Team Name">
-  <input type="text" id="matchTime" placeholder="⏰ Match Time (e.g., 4:00 PM)">
-  <input type="text" id="stadiumName" placeholder="🏟️ Stadium Name">
-  <input type="date" id="matchDate">
-
-  <button onclick="downloadImage()">💾 Download Image</button>
+  <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+    <button onclick="downloadImage()">💾 Download Image</button>
+  </div>
 </div>
+
+<datalist id="epl-teams">
+  <option value="AFC Bournemouth">
+  <option value="Arsenal">
+  <option value="Aston Villa">
+  <option value="Brentford">
+  <option value="Brighton & Hove Albion">
+  <option value="Burnley">
+  <option value="Chelsea">
+  <option value="Crystal Palace">
+  <option value="Everton">
+  <option value="Fulham">
+  <option value="Leeds United">
+  <option value="Liverpool">
+  <option value="Manchester City">
+  <option value="Manchester United">
+  <option value="Newcastle United">
+  <option value="Nottingham Forest">
+  <option value="Sunderland">
+  <option value="Tottenham Hotspur">
+  <option value="West Ham United">
+  <option value="Wolverhampton Wanderers">
+</datalist>
 
 <canvas id="canvas"></canvas>
 
 <script>
-  const canvas = document.getElementById("canvas");
-  const ctx = canvas.getContext("2d");
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
 
-  let uploadedImage = null;
-  let player1Img = null;
-  let player2Img = null;
-  let homeLogoImg = null;
-  let awayLogoImg = null;
+let uploadedImage = null;
+let player1Img = null;
+let player2Img = null;
+let homeLogo = null;
+let awayLogo = null;
 
-  function loadImage(file, callback) {
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = e => {
-      const img = new Image();
-      img.onload = () => callback(img);
-      img.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
+// Map EPL teams to logo paths
+const teamLogos = {
+  "Arsenal": "logos/arsenal.png",
+  "Chelsea": "logos/chelsea.png",
+  "Liverpool": "logos/liverpool.png",
+  "Manchester City": "logos/mancity.png",
+  "Manchester United": "logos/manutd.png",
+  "Tottenham Hotspur": "logos/tottenham.png",
+  "AFC Bournemouth": "logos/bournemouth.png",
+  "Aston Villa": "logos/astonvilla.png",
+  "Brentford": "logos/brentford.png",
+  "Brighton & Hove Albion": "logos/brighton.png",
+  "Burnley": "logos/burnley.png",
+  "Crystal Palace": "logos/crystalpalace.png",
+  "Everton": "logos/everton.png",
+  "Fulham": "logos/fulham.png",
+  "Leeds United": "logos/leeds.png",
+  "Newcastle United": "logos/newcastle.png",
+  "Nottingham Forest": "logos/nottingham.png",
+  "Sunderland": "logos/sunderland.png",
+  "West Ham United": "logos/westham.png",
+  "Wolverhampton Wanderers": "logos/wolves.png"
+};
+
+function loadImage(file, callback) {
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const img = new Image();
+    img.onload = () => callback(img);
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function loadLogo(team, callback) {
+  const path = teamLogos[team];
+  if (!path) { callback(null); return; }
+  const img = new Image();
+  img.onload = () => callback(img);
+  img.src = path;
+}
+
+document.getElementById("imageUploader").addEventListener("change", e => {
+  loadImage(e.target.files[0], img => {
+    uploadedImage = img;
+    resizeCanvasToImage(img);
+    render();
+  });
+});
+
+document.getElementById("player1").addEventListener("change", e => {
+  loadImage(e.target.files[0], img => { player1Img = img; render(); });
+});
+
+document.getElementById("player2").addEventListener("change", e => {
+  loadImage(e.target.files[0], img => { player2Img = img; render(); });
+});
+
+document.getElementById("homeTeam").addEventListener("input", e => {
+  loadLogo(e.target.value, img => { homeLogo = img; render(); });
+});
+document.getElementById("awayTeam").addEventListener("input", e => {
+  loadLogo(e.target.value, img => { awayLogo = img; render(); });
+});
+
+document.querySelectorAll("#matchTime, #stadiumName, #matchDate")
+  .forEach(input => input.addEventListener("input", render));
+
+function resizeCanvasToImage(img) {
+  canvas.width = img.width;
+  canvas.height = img.height;
+}
+
+function formatDate(dateStr) {
+  if (!dateStr) return "Date TBD";
+  const date = new Date(dateStr);
+  return date.toLocaleDateString("en-US", { day: "numeric", month: "long", year: "numeric" });
+}
+
+function drawTextCentered(text, y, fontSize, color = "white") {
+  ctx.font = `${fontSize}px Anton`;
+  ctx.textAlign = "center";
+  ctx.fillStyle = color;
+  ctx.strokeStyle = "black";
+  ctx.lineWidth = 6;
+  ctx.strokeText(text, canvas.width / 2, y);
+  ctx.fillText(text, canvas.width / 2, y);
+}
+
+function render() {
+  if (!uploadedImage) return;
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(uploadedImage, 0, 0);
+
+  // Players
+  ctx.globalAlpha = 0.85;
+  const playerHeight = canvas.height * 0.8;
+  const playerWidth = playerHeight * 0.6;
+
+  if (player1Img) ctx.drawImage(player1Img, canvas.width * 0.05, canvas.height - playerHeight, playerWidth, playerHeight);
+  if (player2Img) ctx.drawImage(player2Img, canvas.width - playerWidth - canvas.width * 0.05, canvas.height - playerHeight, playerWidth, playerHeight);
+  ctx.globalAlpha = 1.0;
+
+  // Center Logos
+  if (homeLogo) {
+    let size = canvas.height * 0.2;
+    ctx.drawImage(homeLogo, canvas.width / 2 - size - 20, canvas.height * 0.35, size, size);
+  }
+  if (awayLogo) {
+    let size = canvas.height * 0.2;
+    ctx.drawImage(awayLogo, canvas.width / 2 + 20, canvas.height * 0.35, size, size);
   }
 
-  document.getElementById("imageUploader").addEventListener("change", e => {
-    loadImage(e.target.files[0], img => {
-      uploadedImage = img;
-      canvas.width = img.width;
-      canvas.height = img.height;
-      render();
-    });
-  });
+  // Overlay for text
+  const centerY = canvas.height * 0.83;
+  const gradient = ctx.createLinearGradient(0, centerY - 300, 0, centerY + 300);
+  gradient.addColorStop(0, "rgba(0,0,0,0.7)");
+  gradient.addColorStop(1, "rgba(0,0,0,0)");
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, centerY - 300, canvas.width, 600);
 
-  document.getElementById("player1").addEventListener("change", e => {
-    loadImage(e.target.files[0], img => { player1Img = img; render(); });
-  });
+  // Text
+  drawTextCentered(`${document.getElementById("homeTeam").value || "Home Team"} vs ${document.getElementById("awayTeam").value || "Away Team"}`, centerY, Math.max(canvas.width * 0.07, 50));
+  drawTextCentered(`${document.getElementById("matchTime").value || "Time TBD"} - ${document.getElementById("stadiumName").value || "Stadium TBD"}`, centerY + 120, Math.max(canvas.width * 0.05, 40), "yellow");
+  drawTextCentered(formatDate(document.getElementById("matchDate").value), centerY + 240, Math.max(canvas.width * 0.04, 30));
+}
 
-  document.getElementById("player2").addEventListener("change", e => {
-    loadImage(e.target.files[0], img => { player2Img = img; render(); });
-  });
+function downloadImage() {
+  const link = document.createElement("a");
+  link.download = "match-fixture.png";
+  link.href = canvas.toDataURL("image/png");
+  link.click();
+}
 
-  document.getElementById("homeLogo").addEventListener("change", e => {
-    loadImage(e.target.files[0], img => { homeLogoImg = img; render(); });
-  });
-
-  document.getElementById("awayLogo").addEventListener("change", e => {
-    loadImage(e.target.files[0], img => { awayLogoImg = img; render(); });
-  });
-
-  document.querySelectorAll("#homeTeam, #awayTeam, #matchTime, #stadiumName, #matchDate")
-    .forEach(input => input.addEventListener("input", render));
-
-  function formatDate(dateStr) {
-    if (!dateStr) return "Date TBD";
-    const date = new Date(dateStr);
-    return date.toLocaleDateString("en-US", { day: "numeric", month: "long", year: "numeric" });
-  }
-
-  function drawTextCentered(text, y, fontSize, color = "white") {
-    ctx.font = `${fontSize}px Anton`;
-    ctx.textAlign = "center";
-    ctx.fillStyle = color;
-    ctx.strokeStyle = "black";
-    ctx.lineWidth = 6;
-    ctx.strokeText(text, canvas.width / 2, y);
-    ctx.fillText(text, canvas.width / 2, y);
-  }
-
-  function render() {
-    if (!uploadedImage) return;
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(uploadedImage, 0, 0);
-
-    // Players
-    const playerHeight = canvas.height * 0.6;
-    const playerWidth = playerHeight * 0.6;
-    ctx.globalAlpha = 0.85;
-
-    if (player1Img) ctx.drawImage(player1Img, canvas.width * 0.05, canvas.height - playerHeight, playerWidth, playerHeight);
-    if (player2Img) ctx.drawImage(player2Img, canvas.width - playerWidth - canvas.width * 0.05, canvas.height - playerHeight, playerWidth, playerHeight);
-
-    ctx.globalAlpha = 1.0;
-
-    // Logos
-    const logoSize = canvas.width * 0.22;
-    const logoY = canvas.height * 0.45;
-    if (homeLogoImg) ctx.drawImage(homeLogoImg, canvas.width * 0.36 - logoSize / 2, logoY, logoSize, logoSize);
-    if (awayLogoImg) ctx.drawImage(awayLogoImg, canvas.width * 0.64 - logoSize / 2, logoY, logoSize, logoSize);
-
-    // VS text
-    drawTextCentered("VS", canvas.height * 0.52, Math.max(canvas.width * 0.05, 40), "white");
-
-    // Match details
-    drawTextCentered(`${document.getElementById("matchTime").value || "Time TBD"} - ${document.getElementById("stadiumName").value || "Stadium TBD"}`,
-                     canvas.height * 0.78, Math.max(canvas.width * 0.035, 30), "yellow");
-    drawTextCentered(formatDate(document.getElementById("matchDate").value), canvas.height * 0.85, Math.max(canvas.width * 0.03, 24));
-  }
-
-  function downloadImage() {
-    const link = document.createElement("a");
-    link.download = "match-fixture.png";
-    link.href = canvas.toDataURL("image/png");
-    link.click();
-  }
+// Load default background on start
+window.onload = function() {
+  const img = new Image();
+  img.onload = function() {
+    uploadedImage = img;
+    resizeCanvasToImage(img);
+    render();
+  };
+  img.src = "backgrounds/default.jpg"; // your default image path
+};
 </script>
 
 </body>
