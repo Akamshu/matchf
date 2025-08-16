@@ -381,7 +381,7 @@ function render() {
   ctx.drawImage(uploadedImage, 0, 0, canvas.width, canvas.height);
 
   // Team Logos
-  const logoSize = canvas.height * 0.35;
+  const logoSize = canvas.height * 0.29;
   if (homeLogo) {
     ctx.drawImage(homeLogo, canvas.width * 0.35 - logoSize/2, canvas.height * 0.35, logoSize, logoSize);
   }
@@ -392,8 +392,8 @@ function render() {
   // Match Time (center between logos)
   drawTextCentered(
     document.getElementById("matchTime").value || "17:30",
-    canvas.height * 0.74,
-    Math.max(canvas.width * 0.06, 40),
+    canvas.height * 0.68,
+    Math.max(canvas.width * 0.06, 30),
     "white"
   );
 
@@ -413,8 +413,8 @@ let awayTeamFull = document.getElementById("awayTeam").value;
 let homeTeamShort = teamShortNames[homeTeamFull] || homeTeamFull;
 let awayTeamShort = teamShortNames[awayTeamFull] || awayTeamFull;
 
-ctx.fillText(homeTeamShort, canvas.width * 0.35, canvas.height * 0.75);
-ctx.fillText(awayTeamShort, canvas.width * 0.65, canvas.height * 0.75);
+ctx.fillText(homeTeamShort, canvas.width * 0.35, canvas.height * 0.72);
+ctx.fillText(awayTeamShort, canvas.width * 0.65, canvas.height * 0.72);
 
 
   // Match Date (optional, bottom center)
