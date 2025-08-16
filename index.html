@@ -113,6 +113,22 @@ input[type="file"] {
   border: 2px dashed #ccc;
   background-color: #fafafa;
   cursor: pointer;
+ 
+}
+
+
+.custom-file-upload {
+  display: inline-block; /* Make the label act like a button */
+  background-color: #28a745; /* Example background color */
+  color: white; /* Example text color */
+  padding: 10px 15px; /* Example padding */
+  border-radius: 5px; /* Example rounded corners */
+  cursor: pointer; /* Indicate it's clickable */
+  /* Add other styling properties as desired */
+}
+
+.custom-file-upload:hover {
+  background-color: #218838; /* Example hover effect */
 }
 
 input[type="file"]:hover {
@@ -163,21 +179,18 @@ input[type="file"]:hover {
 
 <div class="container">
   <label>Background Image:</label>
-  <input type="file" id="imageUploader" accept="image/*" /><br><br>
-
-  <label>Player Image 1 (Optional):</label>
-  <input type="file" id="player1" accept="image/*" /><br><br>
-
-  <label>Player Image 2 (Optional):</label>
-  <input type="file" id="player2" accept="image/*" /><br><br>
-
+  <input type="file" id="imageUploader" accept="image/*" hidden/><br><br>
+<div class="form-group">
+  <input type="file" id="player1" accept="image/*" />
+  <input type="file" id="player2" accept="image/*" />
+</div>
   <div class="form-group">
     <input list="epl-teams" id="homeTeam" placeholder="Home Team Name" />
     <input list="epl-teams" id="awayTeam" placeholder="Away Team Name" />
   </div>
 
   <div class="form-group">
-    <input type="text" id="matchTime" placeholder="⏰ Match Time (e.g., 4:00 PM)" />
+    <input type="time" id="matchTime" placeholder="⏰ Match Time (e.g., 4:00 PM)" />
     <input list="epl-stadiums" id="stadiumName" placeholder="🏟️ Stadium Name" />
     <input type="date" id="matchDate" />
   </div>
@@ -238,6 +251,30 @@ input[type="file"]:hover {
 <canvas id="canvas"></canvas>
 
 <script>
+const teamShortNames = {
+  "AFC Bournemouth": "BOURNEMOUTH",
+  "Arsenal": "ARSENAL",
+  "Aston Villa": "ASTON VILLA",
+  "Brentford": "BRENTFORD",
+  "Brighton & Hove Albion": "BRIGHTON",
+  "Burnley": "BURNLEY",
+  "Chelsea": "CHELSEA",
+  "Crystal Palace": "C.PALACE",
+  "Everton": "EVERTON",
+  "Fulham": "FULHAM",
+  "Leeds United": "LEEDS",
+  "Liverpool": "LIVERPOOL",
+  "Manchester City": "MAN CITY",
+  "Manchester United": "MAN UNITED",
+  "Newcastle United": "NEWCASTLE",
+  "Nottingham Forest": "N. FOREST",
+  "Sunderland": "SUNDERLAND",
+  "Tottenham Hotspur": "T. HOTSPUR",
+  "West Ham United": "WESTHAM",
+  "Wolverhampton Wanderers": "WOLVES",
+};
+
+
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
@@ -341,40 +378,49 @@ function render() {
   if (!uploadedImage) return;
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.drawImage(uploadedImage, 0, 0);
+  ctx.drawImage(uploadedImage, 0, 0, canvas.width, canvas.height);
 
-  // Players
-  ctx.globalAlpha = 1.0;
-  const playerHeight = canvas.height;
-  const playerWidth = playerHeight * 0.8 ;
-
-  if (player1Img) ctx.drawImage(player1Img, canvas.width * 0.5, canvas.height - playerHeight, playerWidth, playerHeight);
-  if (player2Img) ctx.drawImage(player2Img, canvas.width - playerWidth - canvas.width * 0.5, canvas.height - playerHeight, playerWidth, playerHeight);
-  ctx.globalAlpha = 1.0;
-
-  // Center Logos
+  // Team Logos
+  const logoSize = canvas.height * 0.35;
   if (homeLogo) {
-    let size = canvas.height * 0.2;
-    ctx.drawImage(homeLogo, canvas.width / 2 - size - 20, canvas.height * 0.4, size, size);
+    ctx.drawImage(homeLogo, canvas.width * 0.35 - logoSize/2, canvas.height * 0.35, logoSize, logoSize);
   }
   if (awayLogo) {
-    let size = canvas.height * 0.2;
-    ctx.drawImage(awayLogo, canvas.width / 2 + 20, canvas.height * 0.4, size, size);
+    ctx.drawImage(awayLogo, canvas.width * 0.65 - logoSize/2, canvas.height * 0.35, logoSize, logoSize);
   }
 
-  // Overlay for text
-  const centerY = canvas.height * 0.83;
-  const gradient = ctx.createLinearGradient(0, centerY - 300, 0, centerY + 300);
-  gradient.addColorStop(0, "rgba(0,0,0,0.5)");
-  gradient.addColorStop(1, "rgba(0,0,0,0.5)");
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, centerY - 500, canvas.width, 1200);
+  // Match Time (center between logos)
+  drawTextCentered(
+    document.getElementById("matchTime").value || "17:30",
+    canvas.height * 0.74,
+    Math.max(canvas.width * 0.06, 40),
+    "white"
+  );
 
-  // Text
-  drawTextCentered(`${document.getElementById("homeTeam").value || "Home Team"} vs ${document.getElementById("awayTeam").value || "Away Team"}`, centerY, Math.max(canvas.width * 0.07, 50));
-  drawTextCentered(`${document.getElementById("matchTime").value || "Time TBD"} - ${document.getElementById("stadiumName").value || "Stadium TBD"}`, centerY + 250, Math.max(canvas.width * 0.05, 40), "yellow");
-  drawTextCentered(formatDate(document.getElementById("matchDate").value), centerY + 440, Math.max(canvas.width * 0.04, 30));
-}
+  // VS text (optional, above time)
+  drawTextCentered("VS", canvas.height * 0.55, Math.max(canvas.width * 0.05, 40), "white");
+
+  // Team Names under logos
+  ctx.font = `${Math.max(canvas.width * 0.04, 35)}px Anton`;
+  ctx.textAlign = "center";
+  ctx.fillStyle = "white";
+  ctx.strokeStyle = "black";
+  ctx.lineWidth = 6;
+
+let homeTeamFull = document.getElementById("homeTeam").value;
+let awayTeamFull = document.getElementById("awayTeam").value;
+
+let homeTeamShort = teamShortNames[homeTeamFull] || homeTeamFull;
+let awayTeamShort = teamShortNames[awayTeamFull] || awayTeamFull;
+
+ctx.fillText(homeTeamShort, canvas.width * 0.35, canvas.height * 0.75);
+ctx.fillText(awayTeamShort, canvas.width * 0.65, canvas.height * 0.75);
+
+
+  // Match Date (optional, bottom center)
+  drawTextCentered(formatDate(document.getElementById("matchDate").value) , canvas.height * 0.85, Math.max(canvas.width * 0.03, 28), "white");
+drawTextCentered(document.getElementById("stadiumName").value || "Stadium TBD", canvas.height * 0.95, Math.max(canvas.width * 0.03, 28), "white");
+} 
 
 function downloadImage() {
   const link = document.createElement("a");
