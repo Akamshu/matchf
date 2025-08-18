@@ -202,6 +202,7 @@ input[type="file"]:hover {
 </div>
 
 <datalist id="epl-teams">
+  <!-- Premier League Teams -->
   <option value="AFC Bournemouth">
   <option value="Arsenal">
   <option value="Aston Villa">
@@ -222,6 +223,28 @@ input[type="file"]:hover {
   <option value="Tottenham Hotspur">
   <option value="West Ham United">
   <option value="Wolverhampton Wanderers">
+
+  <!-- La Liga Teams 2024/25 -->
+  <option value="Alavés">
+  <option value="Athletic Club">
+  <option value="Atlético Madrid">
+  <option value="Barcelona">
+  <option value="Celta Vigo">
+  <option value="Espanyol">
+  <option value="Getafe">
+  <option value="Girona">
+  <option value="Las Palmas">
+  <option value="Leganés">
+  <option value="Mallorca">
+  <option value="Osasuna">
+  <option value="Rayo Vallecano">
+  <option value="Real Betis">
+  <option value="Real Madrid">
+  <option value="Real Sociedad">
+  <option value="Sevilla">
+  <option value="Valencia">
+  <option value="Real Valladolid">
+  <option value="Villarreal">
 </datalist>
 
 
@@ -246,6 +269,30 @@ input[type="file"]:hover {
   <option value="Tottenham Hotspur Stadium"> <!-- Tottenham Hotspur -->
   <option value="London Stadium"> <!-- West Ham United -->
   <option value="Molineux Stadium"> <!-- Wolverhampton Wanderers -->
+
+
+   <option value="Spotify Camp Nou"> <!-- FC Barcelona -->
+  <option value="Santiago Bernabéu"> <!-- Real Madrid -->
+  <option value="Metropolitano Stadium"> <!-- Atlético Madrid -->
+  <option value="Ramon Sanchez-Pizjuan Stadium"> <!-- Sevilla FC -->
+  <option value="Estadio Benito Villamarín"> <!-- Real Betis -->
+  <option value="San Mamés"> <!-- Athletic Club (Bilbao) -->
+  <option value="Reale Arena"> <!-- Real Sociedad -->
+  <option value="Mestalla Stadium"> <!-- Valencia CF -->
+  <option value="El Sadar Stadium"> <!-- Osasuna -->
+  <option value="RCDE Stadium"> <!-- Espanyol -->
+  <option value="Estadio de la Cerámica"> <!-- Villarreal CF -->
+  <option value="Visit Mallorca Estadi"> <!-- RCD Mallorca -->
+  <option value="Estadio de Vallecas"> <!-- Rayo Vallecano -->
+  <option value="Municipal de Montilivi"> <!-- Girona FC -->
+  <option value="Estadio de los Juegos Mediterráneos"> <!-- UD Almería -->
+  <option value="Estadio Nuevo Mirandilla"> <!-- Cádiz CF -->
+  <option value="Estadio de Gran Canaria"> <!-- UD Las Palmas -->
+  <option value="Estadio José Zorrilla"> <!-- Real Valladolid -->
+  <option value="Estadio Mendizorrotza"> <!-- Deportivo Alavés -->
+  <option value="Coliseum Alfonso Pérez"> <!-- Getafe CF -->
+  <option value="Estadio Martínez Valero"> <!-- Elche CF -->
+  <option value="Estadio La Rosaleda"> <!-- Málaga CF -->
 </datalist>
 
 
@@ -253,7 +300,7 @@ input[type="file"]:hover {
 
 <script>
 const teamShortNames = {
-  "AFC Bournemouth": "BOURNEMOUTH",
+   "AFC Bournemouth": "BOURNEMOUTH",
   "Arsenal": "ARSENAL",
   "Aston Villa": "ASTON VILLA",
   "Brentford": "BRENTFORD",
@@ -273,6 +320,26 @@ const teamShortNames = {
   "Tottenham Hotspur": "TOTTENHAM",
   "West Ham United": "WESTHAM",
   "Wolverhampton Wanderers": "WOLVES",
+
+  "Alavés": "ALAVES",
+  "Athletic Bilbao": "ATHLETIC",
+  "Atlético Madrid": "ATLETICO",
+  "Barcelona": "BARCA",
+  "Cádiz": "CADIZ",
+  "Celta Vigo": "CELTA",
+  "Getafe": "GETAFE",
+  "Girona": "GIRONA",
+  "Granada": "GRANADA",
+  "Las Palmas": "LAS PALMAS",
+  "Mallorca": "MALLORCA",
+  "Osasuna": "OSASUNA",
+  "Rayo Vallecano": "RAYO",
+  "Real Betis": "BETIS",
+  "Real Madrid": "REAL",
+  "Real Sociedad": "SOCIEDAD",
+  "Sevilla": "SEVILLA",
+  "Valencia": "VALENCIA",
+  "Villarreal": "VILLARREAL"
 };
 
 
@@ -307,6 +374,29 @@ const teamLogos = {
   "Sunderland": "logos/sunderland.png",
   "West Ham United": "logos/westham.png",
   "Wolverhampton Wanderers": "logos/wolves.png"
+
+
+ // LaLiga Teams
+  "Real Madrid": "logos/realmadrid.png",
+  "FC Barcelona": "logos/barcelona.png",
+  "Atlético Madrid": "logos/atletico.png",
+  "Sevilla FC": "logos/sevilla.png",
+  "Real Sociedad": "logos/realsociedad.png",
+  "Athletic Bilbao": "logos/athleticbilbao.png",
+  "Villarreal": "logos/villarreal.png",
+  "Real Betis": "logos/realbetis.png",
+  "Valencia": "logos/valencia.png",
+  "Celta Vigo": "logos/celta.png",
+  "Rayo Vallecano": "logos/rayo.png",
+  "Getafe": "logos/getafe.png",
+  "Osasuna": "logos/osasuna.png",
+  "Mallorca": "logos/mallorca.png",
+  "Girona": "logos/girona.png",
+  "Granada": "logos/granada.png",
+  "Alavés": "logos/alaves.png",
+  "Las Palmas": "logos/laspalmas.png",
+  "Cádiz": "logos/cadiz.png",
+  "Espanyol": "logos/espanyol.png"
 };
 
 function loadImage(file, callback) {
