@@ -534,11 +534,12 @@ function downloadImage() {
   link.href = canvas.toDataURL("image/png");
   link.click();
 }
-
+// REMOVE the duplicate uploadedImage declaration
+// let uploadedImage = null;  <-- delete this line (you already declared it above)
 
 // Competition background images
 const competitionBackgrounds = {
-  premier: "logos/default.jpg",
+  premier: "logos/premier.jpg",   // make sure this file exists
   ucl: "logos/ucl.jpg",
   laliga: "logos/laliga.jpg",
   seriea: "logos/seriea.jpg",
@@ -550,8 +551,6 @@ const competitionBackgrounds = {
   efl: "logos/efl.jpg",
   championship: "logos/championship.jpg"
 };
-
-let uploadedImage = null;
 
 // Change competition background
 document.getElementById("competitionSelect").addEventListener("change", e => {
@@ -578,6 +577,7 @@ window.onload = function() {
   };
   img.src = competitionBackgrounds.premier;
 };
+
 </script>
 
 
