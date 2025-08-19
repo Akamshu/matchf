@@ -534,6 +534,7 @@ function downloadImage() {
   link.click();
 }
 
+
 // Competition background images
 const competitionBackgrounds = {
   premier: "logos/default.jpg",
@@ -548,6 +549,8 @@ const competitionBackgrounds = {
   efl: "logos/efl.jpg",
   championship: "logos/championship.jpg"
 };
+
+let uploadedImage = null;
 
 // Change competition background
 document.getElementById("competitionSelect").addEventListener("change", e => {
@@ -574,8 +577,8 @@ window.onload = function() {
   };
   img.src = competitionBackgrounds.premier;
 };
-
 </script>
+
 
 </body>
 </html>
