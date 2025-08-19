@@ -180,7 +180,22 @@ input[type="file"]:hover {
 
 <div class="container">
   <label>Background Image:</label>
-  <input type="file" id="imageUploader" accept="image/*" hidden/><br><br>
+  <div class="form-group">
+  <select id="competitionSelect">
+    <option value="premier">Premier League</option>
+    <option value="ucl">Champions League</option>
+    <option value="laliga">La Liga</option>
+    <option value="seriea">Serie A</option>
+    <option value="bundesliga">Bundesliga</option>
+    <option value="facup">FA Cup</option>
+    <option value="supercup">Super Cup</option>
+    <option value="uel">Europa League</option>
+    <option value="conference">Conference League</option>
+    <option value="efl">EFL Cup</option>
+    <option value="championship">Championship</option>
+  </select>
+</div>
+
 <div class="form-group">
   <input type="file" id="player1" accept="image/*" />
   <input type="file" id="player2" accept="image/*" />
@@ -517,7 +532,37 @@ function downloadImage() {
   link.click();
 }
 
-// Load default background on start
+// Competition background images
+const competitionBackgrounds = {
+  premier: "backgrounds/default.jpg",
+  ucl: "backgrounds/ucl.jpg",
+  laliga: "backgrounds/laliga.jpg",
+  seriea: "backgrounds/seriea.jpg",
+  bundesliga: "backgrounds/bundesliga.jpg",
+  facup: "backgrounds/facup.jpg",
+  supercup: "backgrounds/supercup.jpg",
+  uel: "backgrounds/uel.jpg",
+  conference: "backgrounds/conference.jpg",
+  efl: "backgrounds/efl.jpg",
+  championship: "backgrounds/championship.jpg"
+};
+
+// Change competition background
+document.getElementById("competitionSelect").addEventListener("change", e => {
+  const selected = e.target.value;
+  const path = competitionBackgrounds[selected];
+  if (path) {
+    const img = new Image();
+    img.onload = function() {
+      uploadedImage = img;
+      resizeCanvasToImage(img);
+      render();
+    };
+    img.src = path;
+  }
+});
+
+// Set default competition background (Premier League)
 window.onload = function() {
   const img = new Image();
   img.onload = function() {
@@ -525,8 +570,9 @@ window.onload = function() {
     resizeCanvasToImage(img);
     render();
   };
-  img.src = "logos/default.jpg"; // your default image path
+  img.src = competitionBackgrounds.premier;
 };
+
 </script>
 
 </body>
