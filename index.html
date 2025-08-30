@@ -263,8 +263,6 @@ input[type="file"]:hover {
   <option value="Sevilla">
   <option value="Valencia">
   <option value="Villarreal">
-    <option value="Levante">
-      <option value="Elche">
 
   <!-- Bundesliga -->
   <option value="Bayer Leverkusen">
@@ -800,8 +798,6 @@ const teamShortNames = {
   "Sevilla": "SEVILLA",
   "Valencia": "VALENCIA",
   "Villarreal": "VILLARREAL",
- "Levante": "LEVANTE",
- "Elche": "ELCHE",
    // Bundesliga
   "Bayer Leverkusen": "LEVERKUSEN",
   "Bayern Munich": "BAYERN",
@@ -1075,9 +1071,7 @@ const teamLogos = {
   "Athletic Bilbao": "logos/athleticbilbao.png",
   "Villarreal": "logos/villarreal.png",
   "Real Betis": "logos/realbetis.png",
-  "Valencia": "logos/valencia.png", 
- "Levante": "logos/levante.png",
-  "Elche": "logos/elche.png",
+  "Valencia": "logos/valencia.png",
   "Celta Vigo": "logos/celta.png",
   "Rayo Vallecano": "logos/rayo.png",
   "Getafe": "logos/getafe.png",
@@ -1156,20 +1150,90 @@ function drawTextCentered(text, y, fontSize, color = "white") {
   ctx.strokeText(text, canvas.width / 2, y);
   ctx.fillText(text, canvas.width / 2, y);
 }
-
 function render() {
   if (!uploadedImage) return;
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.drawImage(uploadedImage, 0, 0, canvas.width, canvas.height);
 
-  // Team Logos
-  const logoSize = canvas.height * 0.29;
+ // --- SCOREBOARD BACKGROUND ---
+const logoBoxSize = canvas.height * 0.3;   // logo box size
+const boardHeight = logoBoxSize * 1.2;     // scoreboard height
+const boardY = canvas.height * 0.55 - boardHeight / 2;
+const boardX = canvas.width * 0.25;
+const boardWidth = canvas.width * 0.5;
+
+// 🎨 Abstract shape behind scoreboard
+const shapeGradient = ctx.createLinearGradient(0, boardY, canvas.width, boardY + boardHeight);
+shapeGradient.addColorStop(0, "rgba(255, 255, 255, 0.08)");
+shapeGradient.addColorStop(1, "rgba(0, 0, 0, 0.15)");
+
+ctx.fillStyle = shapeGradient;
+ctx.beginPath();
+ctx.moveTo(boardX - 40, boardY + boardHeight * 0.2);
+ctx.lineTo(boardX + boardWidth + 60, boardY - 50);
+ctx.lineTo(boardX + boardWidth + 40, boardY + boardHeight + 50);
+ctx.lineTo(boardX - 60, boardY + boardHeight * 0.8);
+ctx.closePath();
+ctx.fill();
+
+// --- Scoreboard box (on top of abstract shape) ---
+const gradient = ctx.createLinearGradient(boardX, 0, boardX + boardWidth, 0);
+gradient.addColorStop(0, "#8a2be2");
+gradient.addColorStop(1, "#8888e8");
+
+ctx.fillStyle = gradient;
+ctx.beginPath();
+ctx.roundRect(boardX, boardY, boardWidth, boardHeight, 15);
+ctx.fill();
+
+
+  // --- TEAM LOGO BOXES ---
+  const logoY = boardY + (boardHeight - logoBoxSize) / 2;
+  const logoPadding = logoBoxSize * 0.15; // proportional padding (15% of box size)
+
+  // Home logo box
+  ctx.fillStyle = "white";
+  ctx.beginPath();
+  ctx.roundRect(
+    boardX + boardWidth * 0.05 - logoBoxSize / 2,
+    logoY,
+    logoBoxSize,
+    logoBoxSize,
+    20
+  );
+  ctx.fill();
+
   if (homeLogo) {
-    ctx.drawImage(homeLogo, canvas.width * 0.35 - logoSize/2, canvas.height * 0.35, logoSize, logoSize);
+    ctx.drawImage(
+      homeLogo,
+      boardX + boardWidth * 0.05 - logoBoxSize / 2 + logoPadding,
+      logoY + logoPadding,
+      logoBoxSize - logoPadding * 2,
+      logoBoxSize - logoPadding * 2
+    );
   }
+
+  // Away logo box
+  ctx.fillStyle = "white";
+  ctx.beginPath();
+  ctx.roundRect(
+    boardX + boardWidth * 0.95 - logoBoxSize / 2,
+    logoY,
+    logoBoxSize,
+    logoBoxSize,
+    20
+  );
+  ctx.fill();
+
   if (awayLogo) {
-    ctx.drawImage(awayLogo, canvas.width * 0.65 - logoSize/2, canvas.height * 0.35, logoSize, logoSize);
+    ctx.drawImage(
+      awayLogo,
+      boardX + boardWidth * 0.95 - logoBoxSize / 2 + logoPadding,
+      logoY + logoPadding,
+      logoBoxSize - logoPadding * 2,
+      logoBoxSize - logoPadding * 2
+    );
   }
 
   // Match Time (center between logos)
@@ -1196,13 +1260,20 @@ let awayTeamFull = document.getElementById("awayTeam").value;
 let homeTeamShort = teamShortNames[homeTeamFull] || homeTeamFull;
 let awayTeamShort = teamShortNames[awayTeamFull] || awayTeamFull;
 
-ctx.fillText(homeTeamShort, canvas.width * 0.35, canvas.height * 0.72);
-ctx.fillText(awayTeamShort, canvas.width * 0.65, canvas.height * 0.72);
+// ctx.fillText(homeTeamShort, canvas.width * 0.35, canvas.height * 0.72);
+// ctx.fillText(awayTeamShort, canvas.width * 0.65, canvas.height * 0.72);
 
 
-  // Match Date (optional, bottom center)
-  drawTextCentered(formatDate(document.getElementById("matchDate").value) , canvas.height * 0.85, Math.max(canvas.width * 0.03, 28), "white");
-drawTextCentered(document.getElementById("stadiumName").value || "Stadium TBD", canvas.height * 0.95, Math.max(canvas.width * 0.03, 28), "white");
+// Get values
+const matchDate = formatDate(document.getElementById("matchDate").value) || "";
+const stadium = document.getElementById("stadiumName").value || "Stadium TBD";
+
+// Combine with spacing
+const combinedText = matchDate && stadium ? `${matchDate}   |   ${stadium}` : matchDate || stadium;
+
+// Draw centered on the same line
+drawTextCentered(combinedText, canvas.height * 0.95, Math.max(canvas.width * 0.03, 28), "white");
+
 } 
 
 function downloadImage() {
