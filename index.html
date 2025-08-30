@@ -1244,6 +1244,7 @@ ctx.fill();
     "white"
   );
 
+  
   // VS text (optional, above time)
   drawTextCentered("VS", canvas.height * 0.55, Math.max(canvas.width * 0.05, 40), "white");
 
@@ -1260,8 +1261,24 @@ let awayTeamFull = document.getElementById("awayTeam").value;
 let homeTeamShort = teamShortNames[homeTeamFull] || homeTeamFull;
 let awayTeamShort = teamShortNames[awayTeamFull] || awayTeamFull;
 
-// ctx.fillText(homeTeamShort, canvas.width * 0.35, canvas.height * 0.72);
-// ctx.fillText(awayTeamShort, canvas.width * 0.65, canvas.height * 0.72);
+// --- FULL TIME BOX ---
+const fullTimeBoxHeight = boardHeight * 0.3; 
+const fullTimeBoxWidth = boardWidth * 0.36;
+const fullTimeX = canvas.width / 2 - fullTimeBoxWidth / 2;
+const fullTimeY = boardY - fullTimeBoxHeight + 200; // spacing above scoreboard
+
+// White rounded rectangle
+ctx.fillStyle = "violet";
+ctx.beginPath();
+ctx.roundRect(fullTimeX, fullTimeY, fullTimeBoxWidth, fullTimeBoxHeight, 30);
+ctx.fill();
+
+// Text "FULL TIME"
+ctx.font = `${Math.max(canvas.width * 0.018, 15)}px Anton`;
+ctx.fillStyle = "black";  
+ctx.textAlign = "center";
+ctx.textBaseline = "middle";
+ctx.fillText("MATCH DAY !", canvas.width / 2, fullTimeY + fullTimeBoxHeight / 2);
 
 
 // Get values
@@ -1273,6 +1290,8 @@ const combinedText = matchDate && stadium ? `${matchDate}   |   ${stadium}` : ma
 
 // Draw centered on the same line
 drawTextCentered(combinedText, canvas.height * 0.95, Math.max(canvas.width * 0.03, 28), "white");
+
+
 
 } 
 
