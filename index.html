@@ -244,25 +244,49 @@ input[type="file"]:hover {
   <option value="Wolverhampton Wanderers">
 
   <!-- La Liga -->
-  <option value="Alavés">
-  <option value="Athletic Bilbao">
-  <option value="Atlético Madrid">
-  <option value="FC Barcelona">
-  <option value="Cádiz">
-  <option value="Celta Vigo">
-  <option value="Getafe">
-  <option value="Girona">
-  <option value="Granada">
-  <option value="Las Palmas">
-  <option value="Mallorca">
-  <option value="Osasuna">
-  <option value="Rayo Vallecano">
-  <option value="Real Betis">
-  <option value="Real Madrid">
-  <option value="Real Sociedad">
-  <option value="Sevilla">
-  <option value="Valencia">
-  <option value="Villarreal">
+<option value="Alavés">Alavés</option>
+<option value="Athletic Bilbao">Athletic Bilbao</option>
+<option value="Atlético Madrid">Atlético Madrid</option>
+<option value="Barcelona">Barcelona</option>
+<option value="Celta Vigo">Celta Vigo</option>
+<option value="Elche">Elche</option>
+<option value="Espanyol">Espanyol</option>
+<option value="Getafe">Getafe</option>
+<option value="Girona">Girona</option>
+<option value="Levante">Levante</option>
+<option value="Mallorca">Mallorca</option>
+<option value="Osasuna">Osasuna</option>
+<option value="Rayo Vallecano">Rayo Vallecano</option>
+<option value="Real Betis">Real Betis</option>
+<option value="Real Madrid">Real Madrid</option>
+<option value="Real Oviedo">Real Oviedo</option>
+<option value="Real Sociedad">Real Sociedad</option>
+<option value="Sevilla">Sevilla</option>
+<option value="Valencia">Valencia</option>
+<option value="Villarreal">Villarreal</option>
+
+<option value="Albacete">Albacete</option>
+<option value="Almería">Almería</option>
+<option value="Andorra">Andorra</option>
+<option value="Burgos">Burgos</option>
+<option value="Cádiz">Cádiz</option>
+<option value="Castellón">Castellón</option>
+<option value="Ceuta">Ceuta</option>
+<option value="Córdoba">Córdoba</option>
+<option value="Cultural Leonesa">Cultural Leonesa</option>
+<option value="Deportivo La Coruña">Deportivo La Coruña</option>
+<option value="Eibar">Eibar</option>
+<option value="Granada">Granada</option>
+<option value="Huesca">Huesca</option>
+<option value="Las Palmas">Las Palmas</option>
+<option value="Leganés">Leganés</option>
+<option value="Málaga">Málaga</option>
+<option value="Mirandés">Mirandés</option>
+<option value="Racing Santander">Racing Santander</option>
+<option value="Real Sociedad B">Real Sociedad B</option>
+<option value="Sporting Gijón">Sporting Gijón</option>
+<option value="Zaragoza">Zaragoza</option>
+
 
   <!-- Bundesliga -->
   <option value="Bayer Leverkusen">
@@ -782,22 +806,47 @@ const teamShortNames = {
   "Alavés": "ALAVES",
   "Athletic Bilbao": "ATHLETIC",
   "Atlético Madrid": "ATLETICO",
-  "FC Barcelona": "BARCA",
+  "Barcelona": "BARCA",
   "Cádiz": "CADIZ",
   "Celta Vigo": "CELTA",
+  "Elche": "ELCHE",
+  "Espanyol": "ESPANYOL",
   "Getafe": "GETAFE",
   "Girona": "GIRONA",
-  "Granada": "GRANADA",
-  "Las Palmas": "LAS PALMAS",
+  "Levante": "LEVANTE",
   "Mallorca": "MALLORCA",
   "Osasuna": "OSASUNA",
-  "Rayo Vallecano": "RAYO",
   "Real Betis": "BETIS",
   "Real Madrid": "MADRID",
   "Real Sociedad": "SOCIEDAD",
+  "Real Oviedo": "OVIEDO",
+  "Rayo Vallecano": "RAYO",
   "Sevilla": "SEVILLA",
   "Valencia": "VALENCIA",
   "Villarreal": "VILLARREAL",
+
+  "AD Ceuta": "CEUTA",
+  "Albacete Balompié": "ALBACETE",
+  "Andorra": "ANDORRA",
+  "Burgos": "BURGOS",
+  "CD Castellón": "CASTELLON",
+  "Córdoba": "CORDOBA",
+  "Cultural Leonesa": "LEONESA",
+  "Deportivo La Coruña": "DEPORTIVO",
+  "Eibar": "EIbar",
+  "Cádiz (if in La Liga 2 also?)": "CADIZ2",
+  "Granada": "GRANADA",
+  "Huesca": "HUESCA",
+  "Las Palmas": "LASPALMAS",
+  "Leganés": "LEGANES",
+  "Málaga": "MALAGA",
+  "Mirandés": "MIRANDES",
+  "Racing Ferrol": "FERROL",
+  "Racing Santander": "SANTANDER",
+  "Real Sociedad B": "SOCIEDADB",
+  "Sporting Gijón": "GIJON",
+  "Tenerife": "TENERIFE",
+  "Zaragoza": "ZARAGOZA",
    // Bundesliga
   "Bayer Leverkusen": "LEVERKUSEN",
   "Bayern Munich": "BAYERN",
@@ -1064,9 +1113,9 @@ const teamLogos = {
   "West Ham United": "logos/westham.png",
   "Wolverhampton Wanderers": "logos/wolves.png",
   "Real Madrid": "logos/realmadrid.png",
-  "FC Barcelona": "logos/barcelona.png",
+  "Barcelona": "logos/barcelona.png",
   "Atlético Madrid": "logos/atletico.svg",
-  "Sevilla FC": "logos/sevilla.png",
+  "Sevilla": "logos/sevilla.png",
   "Real Sociedad": "logos/realsociedad.png",
   "Athletic Bilbao": "logos/athleticbilbao.png",
   "Villarreal": "logos/villarreal.png",
@@ -1078,11 +1127,35 @@ const teamLogos = {
   "Osasuna": "logos/osasuna.png",
   "Mallorca": "logos/mallorca.png",
   "Girona": "logos/girona.png",
-  "Granada": "logos/granada.png",
+  "Levante": "logos/levante.png",
+  "Elche": "logos/elche.png",
+  "Real Oviedo": "logos/oviedo.png",
   "Alavés": "logos/alaves.png",
-  "Las Palmas": "logos/laspalmas.png",
+  "Espanyol": "logos/espanyol.png",
+
+  "Albacete": "logos/albacete.png",
+  "Almería": "logos/almeria.png",
+  "Andorra": "logos/andorra.png",
+  "Burgos": "logos/burgos.png",
   "Cádiz": "logos/cadiz.png",
-  "Espanyol": "logos/espanyol.png"
+  "Castellón": "logos/castellon.png",
+  "Ceuta": "logos/ceuta.png",
+  "Córdoba": "logos/cordoba.png",
+  "Cultural Leonesa": "logos/leonesa.png",
+  "Deportivo La Coruña": "logos/deportivo.png",
+  "Eibar": "logos/eibar.png",
+  "Granada": "logos/granada.png",
+  "Huesca": "logos/huesca.png",
+  "Las Palmas": "logos/laspalmas.png",
+  "Leganés": "logos/leganes.png",
+  "Málaga": "logos/malaga.png",
+  "Mirandés": "logos/mirandes.png",
+  "Racing Ferrol": "logos/ferrol.png",
+  "Racing Santander": "logos/santander.png",
+  "Real Sociedad B": "logos/sociedadb.png",
+  "Sporting Gijón": "logos/gijon.png",
+  "Tenerife": "logos/tenerife.png",
+  "Zaragoza": "logos/zaragoza.png",
 };
 
 function loadImage(file, callback) {
