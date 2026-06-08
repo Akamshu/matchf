@@ -216,8 +216,9 @@ input[type="file"]:hover {
     <input type="date" id="matchDate" />
   </div>
 
-  <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+    <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
     <button onclick="downloadImage()">💾 Download Image</button>
+    <button onclick="shareImage()">📤 Share</button>
   </div>
 </div>
 
@@ -1789,6 +1790,21 @@ window.onload = function() {
   img.src = competitionBackgrounds.premier;
 };
 
+function shareImage() {
+  canvas.toBlob(blob => {
+    const file = new File([blob], "match.png", { type: "image/png" });
+
+    if (navigator.share) {
+      navigator.share({
+        title: "Match Result",
+        files: [file]
+      });
+    } else {
+      alert("Sharing not supported on this device");
+    }
+  });
+}
+</script>
 </script>
 
 
