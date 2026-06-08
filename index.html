@@ -185,10 +185,11 @@ input[type="file"]:hover {
    <input type="file" id="imageUploader" accept="image/*" hidden/><br><br>
   <div class="form-group">
   <select id="competitionSelect">
-    <option value=""> Select League</option>
+    <option value=""> Select Competition</option>
     <option value="premier">Premier League</option>
     <option value="ucl">Champions League</option>
-    <option value="laliga">La Liga</option>
+    <option value="laliga">La Liga</option> 
+   <option value="worldcup">World Cup</option>
     <option value="seriea">Serie A</option>
     <option value="bundesliga">Bundesliga</option>
     <option value="facup">FA Cup</option>
@@ -243,6 +244,57 @@ input[type="file"]:hover {
   <option value="West Ham United">
   <option value="Wolverhampton Wanderers">
 
+
+   <!-- 2026 FIFA World Cup Qualified Countries -->
+
+<option value="Algeria">Algeria</option>
+<option value="Argentina">Argentina</option>
+<option value="Australia">Australia</option>
+<option value="Austria">Austria</option>
+<option value="Belgium">Belgium</option>
+<option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
+<option value="Brazil">Brazil</option>
+<option value="Canada">Canada</option>
+<option value="Cape Verde">Cape Verde</option>
+<option value="Colombia">Colombia</option>
+<option value="Croatia">Croatia</option>
+<option value="Curacao">Curacao</option>
+<option value="Czechia">Czechia</option>
+<option value="DR Congo">DR Congo</option>
+<option value="Ecuador">Ecuador</option>
+<option value="Egypt">Egypt</option>
+<option value="England">England</option>
+<option value="France">France</option>
+<option value="Germany">Germany</option>
+<option value="Ghana">Ghana</option>
+<option value="Haiti">Haiti</option>
+<option value="Iran">Iran</option>
+<option value="Iraq">Iraq</option>
+<option value="Ivory Coast">Ivory Coast</option>
+<option value="Japan">Japan</option>
+<option value="Jordan">Jordan</option>
+<option value="Mexico">Mexico</option>
+<option value="Morocco">Morocco</option>
+<option value="Netherlands">Netherlands</option>
+<option value="New Zealand">New Zealand</option>
+<option value="Norway">Norway</option>
+<option value="Panama">Panama</option>
+<option value="Paraguay">Paraguay</option>
+<option value="Portugal">Portugal</option>
+<option value="Qatar">Qatar</option>
+<option value="Saudi Arabia">Saudi Arabia</option>
+<option value="Scotland">Scotland</option>
+<option value="Senegal">Senegal</option>
+<option value="South Africa">South Africa</option>
+<option value="South Korea">South Korea</option>
+<option value="Spain">Spain</option>
+<option value="Sweden">Sweden</option>
+<option value="Switzerland">Switzerland</option>
+<option value="Tunisia">Tunisia</option>
+<option value="Turkey">Turkey</option>
+<option value="United States">United States</option>
+<option value="Uruguay">Uruguay</option>
+<option value="Uzbekistan">Uzbekistan</option>
   <!-- La Liga -->
 <option value="Alavés">Alavés</option>
 <option value="Athletic Bilbao">Athletic Bilbao</option>
@@ -287,6 +339,7 @@ input[type="file"]:hover {
 <option value="Sporting Gijón">Sporting Gijón</option>
 <option value="Zaragoza">Zaragoza</option>
 
+ 
 
   <!-- Bundesliga -->
   <option value="Bayer Leverkusen">
@@ -841,6 +894,56 @@ const teamShortNames = {
   "West Ham United": "WESTHAM",
   "Wolverhampton Wanderers": "WOLVES",
 
+ 
+  "Algeria": "ALGERIA",
+  "Argentina": "ARGENTINA",
+  "Australia": "AUSTRALIA",
+  "Austria": "AUSTRIA",
+  "Belgium": "BELGIUM",
+  "Bosnia and Herzegovina": "BOSNIA",
+  "Brazil": "BRAZIL",
+  "Canada": "CANADA",
+  "Cape Verde": "CAPE VERDE",
+  "Colombia": "COLOMBIA",
+  "Croatia": "CROATIA",
+  "Curacao": "CURACAO",
+  "Czechia": "CZECHIA",
+  "DR Congo": "DR CONGO",
+  "Ecuador": "ECUADOR",
+  "Egypt": "EGYPT",
+  "England": "ENGLAND",
+  "France": "FRANCE",
+  "Germany": "GERMANY",
+  "Ghana": "GHANA",
+  "Haiti": "HAITI",
+  "Iran": "IRAN",
+  "Iraq": "IRAQ",
+  "Ivory Coast": "IVORY COAST",
+  "Japan": "JAPAN",
+  "Jordan": "JORDAN",
+  "Mexico": "MEXICO",
+  "Morocco": "MOROCCO",
+  "Netherlands": "NETHERLANDS",
+  "New Zealand": "N. ZEALAND",
+  "Norway": "NORWAY",
+  "Panama": "PANAMA",
+  "Paraguay": "PARAGUAY",
+  "Portugal": "PORTUGAL",
+  "Qatar": "QATAR",
+  "Saudi Arabia": "SAUDI ARABIA",
+  "Scotland": "SCOTLAND",
+  "Senegal": "SENEGAL",
+  "South Africa": "S. AFRICA",
+  "South Korea": "S. KOREA",
+  "Spain": "SPAIN",
+  "Sweden": "SWEDEN",
+  "Switzerland": "SWITZERLAND",
+  "Tunisia": "TUNISIA",
+  "Turkey": "TURKEY",
+  "United States": "USA",
+  "Uruguay": "URUGUAY",
+  "Uzbekistan": "UZBEKISTAN",
+
   "Alavés": "ALAVES",
   "Athletic Bilbao": "ATHLETIC",
   "Atlético Madrid": "ATLETICO",
@@ -1169,6 +1272,56 @@ const teamLogos = {
   "Sunderland": "logos/sunderland.png",
   "West Ham United": "logos/westham.png",
   "Wolverhampton Wanderers": "logos/wolves.png",
+
+  "Algeria": "logos/algeria.png",
+  "Argentina": "logos/argentina.png",
+  "Australia": "logos/australia.png",
+  "Austria": "logos/austria.png",
+  "Belgium": "logos/belgium.png",
+  "Bosnia and Herzegovina": "logos/bosnia.png",
+  "Brazil": "logos/brazil.png",
+  "Canada": "logos/canada.png",
+  "Cape Verde": "logos/capeverde.png",
+  "Colombia": "logos/colombia.png",
+  "Croatia": "logos/croatia.png",
+  "Curacao": "logos/curacao.png",
+  "Czechia": "logos/czechia.png",
+  "DR Congo": "logos/drcongo.png",
+  "Ecuador": "logos/ecuador.png",
+  "Egypt": "logos/egypt.png",
+  "England": "logos/england.png",
+  "France": "logos/france.png",
+  "Germany": "logos/germany.png",
+  "Ghana": "logos/ghana.svg",
+  "Haiti": "logos/haiti.png",
+  "Iran": "logos/iran.png",
+  "Iraq": "logos/iraq.png",
+  "Italy": "logos/italy.svg",
+  "Ivory Coast": "logos/ivorycoast.png",
+  "Japan": "logos/japan.png",
+  "Jordan": "logos/jordan.png",
+  "Mexico": "logos/mexico.png",
+  "Morocco": "logos/morocco.png",
+  "Netherlands": "logos/netherlands.png",
+  "New Zealand": "logos/newzealand.png",
+  "Norway": "logos/norway.png",
+  "Panama": "logos/panama.png",
+  "Paraguay": "logos/paraguay.png",
+  "Portugal": "logos/portugal.png",
+  "Qatar": "logos/qatar.png",
+  "Saudi Arabia": "logos/saudiarabia.png",
+  "Scotland": "logos/scotland.png",
+  "Senegal": "logos/senegal.png",
+  "South Africa": "logos/southafrica.png",
+  "South Korea": "logos/southkorea.png",
+  "Spain": "logos/spain.png",
+  "Sweden": "logos/sweden.png",
+  "Switzerland": "logos/switzerland.png",
+  "Tunisia": "logos/tunisia.png",
+  "Turkey": "logos/turkey.png",
+  "United States": "logos/usa.png",
+  "Uruguay": "logos/uruguay.png",
+  "Uzbekistan": "logos/uzbekistan.png",
   "Real Madrid": "logos/realmadrid.png",
   "Barcelona": "logos/barcelona.png",
   "Atlético Madrid": "logos/atletico.svg",
@@ -1598,7 +1751,8 @@ function downloadImage() {
 const competitionBackgrounds = {
   premier: "logos/default.jpg",   // make sure this file exists
   ucl: "logos/ucl.jpg",
-  laliga: "logos/laliga.jpg",
+  laliga: "logos/laliga.jpg", 
+ worldcup: "logos/worldcup.png",
   seriea: "logos/seriea.jpg",
   bundesliga: "logos/bundesliga.jpg",
   facup: "logos/facup.jpg",
