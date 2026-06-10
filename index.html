@@ -1594,6 +1594,27 @@ function drawTextCentered(text, y, fontSize, color = "white") {
   ctx.strokeText(text, canvas.width / 2, y);
   ctx.fillText(text, canvas.width / 2, y);
 }
+
+ function drawImageContain(ctx, img, x, y, width, height, padding = 0) {
+  if (!img) return;
+
+  const boxW = width - padding * 2;
+  const boxH = height - padding * 2;
+
+  const scale = Math.min(
+    boxW / img.width,
+    boxH / img.height
+  );
+
+  const drawW = img.width * scale;
+  const drawH = img.height * scale;
+
+  const drawX = x + padding + (boxW - drawW) / 2;
+  const drawY = y + padding + (boxH - drawH) / 2;
+
+  ctx.drawImage(img, drawX, drawY, drawW, drawH);
+}
+ 
 function render() {
   if (!uploadedImage) return;
 
@@ -1630,7 +1651,6 @@ ctx.fillStyle = gradient;
 ctx.beginPath();
 ctx.roundRect(boardX, boardY, boardWidth, boardHeight, 15);
 ctx.fill();
-
 
   // --- TEAM LOGO BOXES ---
 const homeTeam = document.getElementById("homeTeam").value;
