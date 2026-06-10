@@ -1803,19 +1803,7 @@ ctx.fillText(
   // VS text (optional, above time)
   drawTextCentered("VS", canvas.height * 0.55, Math.max(canvas.width * 0.05, 40), "white");
 
-  // Team Names under logos
-  ctx.font = `${Math.max(canvas.width * 0.04, 35)}px Anton`;
-  ctx.textAlign = "center";
-  ctx.fillStyle = "white";
-  ctx.strokeStyle = "black";
-  ctx.lineWidth = 6;
-
-let homeTeamFull = document.getElementById("homeTeam").value;
-let awayTeamFull = document.getElementById("awayTeam").value;
-
-let homeTeamShort = teamShortNames[homeTeamFull] || homeTeamFull;
-let awayTeamShort = teamShortNames[awayTeamFull] || awayTeamFull;
-
+  
 // --- FULL TIME BOX ---
 const fullTimeBoxHeight = boardHeight * 0.3; 
 const fullTimeBoxWidth = boardWidth * 0.36;
