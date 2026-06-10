@@ -1633,52 +1633,163 @@ ctx.fill();
 
 
   // --- TEAM LOGO BOXES ---
-  const logoY = boardY + (boardHeight - logoBoxSize) / 2;
-  const logoPadding = logoBoxSize * 0.15; // proportional padding (15% of box size)
+const homeTeam = document.getElementById("homeTeam").value;
+const awayTeam = document.getElementById("awayTeam").value;
+const logoY = boardY + (boardHeight - logoBoxSize) / 2;
+const logoPadding = logoBoxSize * 0.15;
+ const logoAreaHeight = logoBoxSize * 0.85;
+const nameAreaHeight = logoBoxSize * 0.15;
 
-  // Home logo box
-  ctx.fillStyle = "white";
-  ctx.beginPath();
-  ctx.roundRect(
-    boardX + boardWidth * 0.05 - logoBoxSize / 2,
+// ======================================
+// HOME TEAM BOX
+// ======================================
+
+const homeLogoX = boardX + boardWidth * 0.05 - logoBoxSize / 2;
+
+// Main box
+ctx.fillStyle = "white";
+ctx.beginPath();
+ctx.roundRect(
+  homeLogoX,
+  logoY,
+  logoBoxSize,
+  logoBoxSize,
+  20
+);
+ctx.fill();
+
+// Logo Area (85%)
+if (homeLogo) {
+  drawImageContain(
+    ctx,
+    homeLogo,
+    homeLogoX,
     logoY,
     logoBoxSize,
-    logoBoxSize,
-    20
+    logoAreaHeight,
+    logoBoxSize * 0.05
   );
-  ctx.fill();
+}
 
-  if (homeLogo) {
-    ctx.drawImage(
-      homeLogo,
-      boardX + boardWidth * 0.05 - logoBoxSize / 2 + logoPadding,
-      logoY + logoPadding,
-      logoBoxSize - logoPadding * 2,
-      logoBoxSize - logoPadding * 2
-    );
-  }
+// Name Area Background (15%)
+ctx.fillStyle = "#38003c";
+ctx.beginPath();
+ctx.roundRect(
+  homeLogoX,
+  logoY + logoAreaHeight,
+  logoBoxSize,
+  nameAreaHeight,
+  [0, 0, 20, 20]
+);
+ctx.fill();
 
-  // Away logo box
-  ctx.fillStyle = "white";
-  ctx.beginPath();
-  ctx.roundRect(
-    boardX + boardWidth * 0.95 - logoBoxSize / 2,
+// Divider
+ctx.strokeStyle = "#ffffff";
+ctx.lineWidth = 2;
+ctx.beginPath();
+ctx.moveTo(homeLogoX, logoY + logoAreaHeight);
+ctx.lineTo(homeLogoX + logoBoxSize, logoY + logoAreaHeight);
+ctx.stroke();
+
+// Home Team Name
+ctx.font = `bold ${Math.max(canvas.width * 0.010, 25)}px Anton`;
+ctx.textAlign = "center";
+ctx.textBaseline = "middle";
+ctx.lineWidth = 6;
+ctx.strokeStyle = "#38003c";
+ctx.fillStyle = "white";
+
+const homeNameY =
+  logoY + logoAreaHeight + nameAreaHeight / 2;
+
+ctx.strokeText(
+  teamShortNames[homeTeam] || homeTeam,
+  homeLogoX + logoBoxSize / 2,
+  homeNameY
+);
+
+ctx.fillText(
+  teamShortNames[homeTeam] || homeTeam,
+  homeLogoX + logoBoxSize / 2,
+  homeNameY
+);
+
+
+// ======================================
+// AWAY TEAM BOX
+// ======================================
+
+const awayLogoX = boardX + boardWidth * 0.95 - logoBoxSize / 2;
+
+// Main box
+ctx.fillStyle = "white";
+ctx.beginPath();
+ctx.roundRect(
+  awayLogoX,
+  logoY,
+  logoBoxSize,
+  logoBoxSize,
+  20
+);
+ctx.fill();
+
+// Logo Area (85%)
+if (awayLogo) {
+  drawImageContain(
+    ctx,
+    awayLogo,
+    awayLogoX,
     logoY,
     logoBoxSize,
-    logoBoxSize,
-    20
+    logoAreaHeight,
+    logoBoxSize * 0.05
   );
-  ctx.fill();
+}
 
-  if (awayLogo) {
-    ctx.drawImage(
-      awayLogo,
-      boardX + boardWidth * 0.95 - logoBoxSize / 2 + logoPadding,
-      logoY + logoPadding,
-      logoBoxSize - logoPadding * 2,
-      logoBoxSize - logoPadding * 2
-    );
-  }
+// Name Area Background (15%)
+ctx.fillStyle = "#38003c";
+ctx.beginPath();
+ctx.roundRect(
+  awayLogoX,
+  logoY + logoAreaHeight,
+  logoBoxSize,
+  nameAreaHeight,
+  [0, 0, 20, 20]
+);
+ctx.fill();
+
+// Divider
+ctx.strokeStyle = "#ffffff";
+ctx.lineWidth = 2;
+ctx.beginPath();
+ctx.moveTo(awayLogoX, logoY + logoAreaHeight);
+ctx.lineTo(awayLogoX + logoBoxSize, logoY + logoAreaHeight);
+ctx.stroke();
+
+// Away Team Name
+ctx.font = `bold ${Math.max(canvas.width * 0.010, 25)}px Anton`;
+ctx.textAlign = "center";
+ctx.textBaseline = "middle";
+ctx.lineWidth = 6;
+ctx.strokeStyle = "#38003c";
+ctx.fillStyle = "white";
+
+const awayNameY =
+  logoY + logoAreaHeight + nameAreaHeight / 2;
+
+ctx.strokeText(
+  teamShortNames[awayTeam] || awayTeam,
+  awayLogoX + logoBoxSize / 2,
+  awayNameY
+);
+
+ctx.fillText(
+  teamShortNames[awayTeam] || awayTeam,
+  awayLogoX + logoBoxSize / 2,
+  awayNameY
+);
+
+
 
   // Match Time (center between logos)
   drawTextCentered(
