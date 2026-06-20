@@ -190,6 +190,7 @@ input[type="file"]:hover {
     <option value="ucl">Champions League</option>
     <option value="laliga">La Liga</option> 
    <option value="worldcup">World Cup</option>
+   <option value="recror">Rector's Cup</option>
     <option value="seriea">Serie A</option>
     <option value="bundesliga">Bundesliga</option>
     <option value="facup">FA Cup</option>
@@ -223,6 +224,14 @@ input[type="file"]:hover {
 </div>
 
 <datalist id="epl-teams">
+
+<option value="Computer Science">
+ <option value="Computer Engineering">
+  <option value="Science Laboratory Technology">
+   <option value="Public Administration">
+    <option value="Business Administration and Management">
+ <option value="Pharmaceutical Technology">
+  <option value="Mass Communication">
    <!-- Premier League -->
   <option value="AFC Bournemouth">
   <option value="Arsenal">
@@ -875,6 +884,13 @@ input[type="file"]:hover {
 
 <script>
 const teamShortNames = {
+"Computer Science": "COMP. SCI.",
+  "Public Administration": "PUBLIC",
+  "Business Administration and Management": "BAM",
+"Computer Engineering": "COMP ENG.",
+  "Pharmaceutical Technology": "PHARM TECH",
+  "Science Laboratory Technology": "SLT",
+ 
      "AFC Bournemouth": "BOURNEMOUTH",
   "Arsenal": "ARSENAL",
   "Aston Villa": "ASTON VILLA",
@@ -1255,6 +1271,15 @@ let awayLogo = null;
 
 // Map EPL teams to logo paths
 const teamLogos = {
+
+"Computer Science": "logos/cs.png",
+  "Public Administration": "logos/pa.png",
+  "Business Administration and Management": "logos/bam.png",
+  "Pharmaceutical Technology": "logos/pt.png",
+  "Computer Engineering": "logos/coe.png",
+  "Science Laboratory Technology": "logos/slt.svg",
+  "Mass Communication": "logos/mascom.png",
+ 
   "Arsenal": "logos/arsenal.svg",
   "Chelsea": "logos/chelsea.png",
   "Liverpool": "logos/liverpool.png",
