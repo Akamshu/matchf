@@ -1642,20 +1642,6 @@ function drawTextCentered(text, y, fontSize, color = "white") {
 
   ctx.drawImage(img, drawX, drawY, drawW, drawH);
 }
-
- function fitText(text, maxWidth, maxHeight) {
-  let size = maxHeight;
-
-  do {
-    ctx.font = `bold ${size}px Anton`;
-    if (ctx.measureText(text).width <= maxWidth) {
-      return size;
-    }
-    size--;
-  } while (size > 8);
-
-  return 8;
-}
  
 function render() {
   if (!uploadedImage) return;
@@ -1754,32 +1740,12 @@ ctx.lineTo(homeLogoX + logoBoxSize, logoY + logoAreaHeight);
 ctx.stroke();
 
 // Home Team Name
-const homeName = teamShortNames[homeTeam] || homeTeam;
-
-const homeFontSize = fitText(
-    homeName,
-    logoBoxSize * 0.90,      // 90% width
-    nameAreaHeight * 0.90    // 90% height
-);
-
-ctx.font = `bold ${homeFontSize}px Anton`;
+ctx.font = `bold ${Math.max(canvas.width * 0.010, 25)}px Anton`;
 ctx.textAlign = "center";
 ctx.textBaseline = "middle";
-ctx.lineWidth = 4;
+ctx.lineWidth = 6;
 ctx.strokeStyle = "#38003c";
 ctx.fillStyle = "white";
-
-ctx.strokeText(
-    homeName,
-    homeLogoX + logoBoxSize/2,
-    homeNameY
-);
-
-ctx.fillText(
-    homeName,
-    homeLogoX + logoBoxSize/2,
-    homeNameY
-);
 
 const homeNameY =
   logoY + logoAreaHeight + nameAreaHeight / 2;
@@ -1849,32 +1815,12 @@ ctx.lineTo(awayLogoX + logoBoxSize, logoY + logoAreaHeight);
 ctx.stroke();
 
 // Away Team Name
-const awayName = teamShortNames[awayTeam] || awayTeam;
-
-const awayFontSize = fitText(
-    awayName,
-    logoBoxSize * 0.90,
-    nameAreaHeight * 0.90
-);
-
-ctx.font = `bold ${awayFontSize}px Anton`;
+ctx.font = `bold ${Math.max(canvas.width * 0.010, 25)}px Anton`;
 ctx.textAlign = "center";
 ctx.textBaseline = "middle";
-ctx.lineWidth = 4;
+ctx.lineWidth = 6;
 ctx.strokeStyle = "#38003c";
 ctx.fillStyle = "white";
-
-ctx.strokeText(
-    awayName,
-    awayLogoX + logoBoxSize/2,
-    awayNameY
-);
-
-ctx.fillText(
-    awayName,
-    awayLogoX + logoBoxSize/2,
-    awayNameY
-);
 
 const awayNameY =
   logoY + logoAreaHeight + nameAreaHeight / 2;
