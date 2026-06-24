@@ -225,13 +225,42 @@ input[type="file"]:hover {
 
 <datalist id="epl-teams">
 
-<option value="Computer Science">
- <option value="Computer Engineering">
-  <option value="Science Laboratory Technology">
-   <option value="Public Administration">
-    <option value="Business Administration and Management">
- <option value="Pharmaceutical Technology">
-  <option value="Mass Communication">
+<option value="Accountancy">Accountancy</option>
+<option value="Agricultural and Bio-Environmental Engineering">Agricultural and Bio-Environmental Engineering</option>
+<option value="Agricultural Technology">Agricultural Technology</option>
+<option value="Animal Health and Production Technology">Animal Health and Production Technology</option>
+<option value="Architectural Technology">Architectural Technology</option>
+<option value="Banking and Finance">Banking and Finance</option>
+<option value="Biological Science Technology">Biological Science Technology</option>
+<option value="Building Technology">Building Technology</option>
+<option value="Business Administration and Management">Business Administration and Management</option>
+<option value="Chemical Engineering">Chemical Engineering</option>
+<option value="Chemical Science Technology">Chemical Science Technology</option>
+<option value="Civil Engineering">Civil Engineering</option>
+<option value="Computer Engineering">Computer Engineering</option>
+<option value="Computer Science">Computer Science</option>
+<option value="Electrical and Electronics Engineering">Electrical and Electronics Engineering</option>
+<option value="Estate Management and Valuation">Estate Management and Valuation</option>
+<option value="Fisheries Technology">Fisheries Technology</option>
+<option value="Food Science and Technology">Food Science and Technology</option>
+<option value="Forestry Technology">Forestry Technology</option>
+<option value="Geological Technology">Geological Technology</option>
+<option value="Horticultural Technology">Horticultural Technology</option>
+<option value="Industrial Safety and Environmental Technology">Industrial Safety and Environmental Technology</option>
+<option value="Legal Studies">Legal Studies</option>
+<option value="Leisure and Tourism Management">Leisure and Tourism Management</option>
+<option value="Library and Information Science">Library and Information Science</option>
+<option value="Mass Communication">Mass Communication</option>
+<option value="Mechanical Engineering">Mechanical Engineering</option>
+<option value="Nutrition and Dietetics">Nutrition and Dietetics</option>
+<option value="Office Technology and Management">Office Technology and Management</option>
+<option value="Public Administration">Public Administration</option>
+<option value="Purchasing and Supply">Purchasing and Supply</option>
+<option value="Quantity Surveying">Quantity Surveying</option>
+<option value="Science Laboratory Technology">Science Laboratory Technology</option>
+<option value="Statistics">Statistics</option>
+<option value="Surveying and Geoinformatics">Surveying and Geoinformatics</option>
+<option value="Marketing">Marketing</option>
    <!-- Premier League -->
   <option value="AFC Bournemouth">
   <option value="Arsenal">
@@ -884,12 +913,48 @@ input[type="file"]:hover {
 
 <script>
 const teamShortNames = {
-"Computer Science": "COMP. SCI.",
+
+  "Computer Science": "COMP. SCI.",
+  "Computer Engineering": "COMP. ENG.",
+  "Computer Engineering Technology": "COMP. ENG.",
   "Public Administration": "PUBLIC",
   "Business Administration and Management": "BAM",
-"Computer Engineering": "COMP ENG.",
-  "Pharmaceutical Technology": "PHARM TECH",
+  "Pharmaceutical Technology": "PHARM. TECH.",
   "Science Laboratory Technology": "SLT",
+  "Accountancy": "ACCOUNT.",
+  "Banking and Finance": "BANKING",
+  "Marketing": "MARKETING",
+  "Purchasing and Supply": "P&S",
+  "Legal Studies": "LEGAL",
+  "Mass Communication": "MASS COMM.",
+  "Library and Information Science": "LIS",
+  "Office Technology and Management": "OTM",
+  "Statistics": "STAT.",
+  "Food Science and Technology": "FST",
+  "Nutrition and Dietetics": "N&D",
+  "Biological Science Technology": "BST",
+  "Chemical Science Technology": "CST",
+  "Geological Technology": "GEO. TECH.",
+  "Leisure and Tourism Management": "LTM",
+  "Civil Engineering": "CIVIL ENG.",
+  "Mechanical Engineering": "MECH. ENG.",
+  "Electrical and Electronics Engineering": "EEE",
+  "Chemical Engineering": "CHEM. ENG.",
+  "Agricultural and Bio-Environmental Engineering": "ABEE",
+  "Architectural Technology": "ARCH. TECH.",
+  "Building Technology": "BLDG. TECH.",
+  "Estate Management and Valuation": "EMV",
+  "Quantity Surveying": "QS",
+  "Surveying and Geoinformatics": "S&G",
+  "Industrial Safety and Environmental Technology": "ISET",
+  "Agricultural Technology": "AGRIC",
+  "Animal Health and Production Technology": "AHPT",
+  "Fisheries Technology": "FISHERIES",
+  "Forestry Technology": "FORESTRY",
+  "Horticultural Technology": "HORT.",
+  "Welding and Fabrication Technology": "WFT",
+  "Mechatronics Engineering": "MECHATRONICS",
+  "Urban and Regional Planning": "URP",
  
      "AFC Bournemouth": "BOURNEMOUTH",
   "Arsenal": "ARSENAL",
@@ -1272,13 +1337,53 @@ let awayLogo = null;
 // Map EPL teams to logo paths
 const teamLogos = {
 
-"Computer Science": "logos/cs.png",
-  "Public Administration": "logos/pa.png",
-  "Business Administration and Management": "logos/bam.png",
-  "Pharmaceutical Technology": "logos/pt.png",
-  "Computer Engineering": "logos/coe.png",
-  "Science Laboratory Technology": "logos/slt.svg",
-  "Mass Communication": "logos/mascom.png",
+# School of Science and Technology
+    "Computer Science": "logos/cs.png",
+    "Science Laboratory Technology": "logos/slt.png",
+    "Food Science and Technology": "logos/fst.png",
+    "Nutrition and Dietetics": "logos/nd.png",
+    "Biological Science Technology": "logos/bst.png",
+    "Chemical Science Technology": "logos/cst.png",
+    "Geological Technology": "logos/gt.png",
+    "Statistics": "logos/stat.png",
+    "Leisure and Tourism Management": "logos/ltm.png",
+
+    # School of Business and Management Technology
+    "Accountancy": "logos/acc.png",
+    "Business Administration and Management": "logos/bam.png",
+    "Banking and Finance": "logos/bf.png",
+    "Public Administration": "logos/pa.png",
+    "Purchasing and Supply": "logos/ps.png",
+    "Marketing": "logos/mkt.png",
+    "Legal Studies": "logos/law.png",
+
+    # School of Communication and Information Technology
+    "Mass Communication": "logos/mac.png",
+    "Library and Information Science": "logos/lis.png",
+    "Office Technology and Management": "logos/otm.png",
+
+    # School of Engineering Technology
+    "Civil Engineering": "logos/ce.png",
+    "Mechanical Engineering": "logos/me.png",
+    "Electrical and Electronics Engineering": "logos/eee.png",
+    "Computer Engineering": "logos/cpe.png",
+    "Chemical Engineering": "logos/che.png",
+    "Agricultural and Bio-Environmental Engineering": "logos/abee.png",
+
+    # School of Environmental Technology
+    "Architectural Technology": "logos/at.png",
+    "Building Technology": "logos/bt.png",
+    "Estate Management and Valuation": "logos/emv.png",
+    "Quantity Surveying": "logos/qs.png",
+    "Surveying and Geoinformatics": "logos/sg.png",
+    "Industrial Safety and Environmental Technology": "logos/iset.png",
+
+    # School of Agricultural Technology
+    "Agricultural Technology": "logos/agric.png",
+    "Animal Health and Production Technology": "logos/ahpt.png",
+    "Fisheries Technology": "logos/fish.png",
+    "Forestry Technology": "logos/forest.png",
+    "Horticultural Technology": "logos/hort.png",
  
   "Arsenal": "logos/arsenal.svg",
   "Chelsea": "logos/chelsea.png",
